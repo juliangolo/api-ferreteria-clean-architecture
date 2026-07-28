@@ -32,7 +32,15 @@ class ProductService {
 
     // Enviamos el objeto al repositorio y esperamos a que lo inserte
     const result = await productRepository.create(productData);
-    return result;
+
+    // HUECO 1: Extraemos la propiedad que contiene el ID asignado por MongoDB
+    const newId = result.insertedId;
+
+    // HUECO 2: Devolvemos el objeto del producto uniendo el _id con las propiedades de productData
+    return {
+      _id: newId,
+      ...productData,
+    };
   }
 
   // Filtrar por precio
