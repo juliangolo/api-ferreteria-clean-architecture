@@ -1,6 +1,10 @@
 import productRepository from "./product.repository.js";
 
 class ProductService {
+  calcularPrecioConIVA(precioBase) {
+    return precioBase * 1.21;
+  }
+
   // 1. Obtener todos los productos de la base de datos
   async getAllProducts() {
     // Pedimos los documentos al repositorio (operación asíncrona)
