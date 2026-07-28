@@ -13,6 +13,25 @@ class ProductRepository {
     return db.collection("products");
   }
 
+  // Buscar productos que cuesten igual o más que un precio dado
+  async findByMinPrice(minPrice) {
+    const collection = await this.getCollection();
+    // $gte es un operador de MongoDB que significa "Greater Than or Equal" (mayor o igual que)
+    return collection.find({ price: { $gte: minPrice } }).toArray();
+  }
+
+  // Aplicar un multiplicador de descuento a todos los productos de una categoría
+  async updateDiscountByCategory(category, multiplier) {
+    const collection = await this.getCollection();
+    // $mul es un operador nativo de Mongo que multiplica el valor por el multiplicador
+    await collection.updateMany(
+      { category: category },
+      { $mul: { price: multiplier } },
+    );
+    // Devolvemos los productos tras ser actualizados
+    return collection.find({ category: category }).toArray();
+  }
+
   async findAll() {
     const collection = await this.getCollection();
     // Pista: find() devuelve un cursor, debes convertirlo a Array

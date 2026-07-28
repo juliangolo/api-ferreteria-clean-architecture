@@ -89,7 +89,7 @@ class ProductController {
         .status(200)
         .json({ message: "Producto eliminado", product: deleted });
     } catch (error) {
-      if (error.message === "NOT_FOUND") {
+      if (error.message === "PRODUCT_NOT_FOUND") {
         return res.status(404).json({ error: "Producto no encontrado" });
       }
       return res.status(500).json({ error: "Error interno del servidor" });

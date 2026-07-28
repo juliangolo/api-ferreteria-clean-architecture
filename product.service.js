@@ -35,6 +35,27 @@ class ProductService {
     return result;
   }
 
+  // Filtrar por precio
+  async getProductByMinPrice(minPrice) {
+    return await productRepository.findByMinPrice(minPrice);
+  }
+
+  // Aplicar descuentos matemáticos
+  async applyCategoryDiscount(category, percentage) {
+    if (percentage <= 0 || percentage >= 100) {
+      throw new Error("El porcentaje debe estar entre 1 y 99");
+    }
+
+    // Lógica de negocio: si el descuento es del 20%, multiplicamos el precio por 0.80
+    const multiplier = 1 - percentage / 100;
+
+    // Mandamos el multiplicador al almacén para que aplique los cambios
+    return await productRepository.updateDiscountByCategory(
+      category,
+      multiplier,
+    );
+  }
+
   // 4. Eliminar un producto por su ID
   async removeProduct(id) {
     // Pasamos el 'id' al repositorio (él se encarga de convertirlo a ObjectId)
