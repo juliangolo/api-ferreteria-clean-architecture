@@ -32,3 +32,12 @@ export async function connectDB() {
     throw error;
   }
 }
+
+export async function closeDB() {
+  if (client) {
+    await client.close();
+    client = null;
+    dbInstance = null;
+    console.log("🔒 Conexión a MongoDB cerrada limpiamente");
+  }
+}

@@ -27,6 +27,7 @@ app.delete("/api/products/:id", productController.deleted);
 // PASO 5: Iniciar el servidor
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(`🚀 Servidor ejecutándose en http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//  console.log(`🚀 Servidor ejecutándose en http://localhost:${PORT}`);
+// });
+export default app;
